@@ -1,3 +1,5 @@
+<!-- u can only store data as a string in local storage -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +11,23 @@
 <body>
     <form onsubmit="saveToLocalStorage(event)">
         <label>Name</label>
+        
         <input type="text" name="username" required/>
+        <br>
         <label>EmailId</label>
+        
         <input type="email" name="emailId" required/>
+        <br>
         <label>Phone Number</label>
+        
         <input type="tel" name="phonenumber"/>
+        <br>
         <button>Submit</button>
        
     </form>
-    <ul id="listOfitems"></ul>
+    <ul id="listOfitems">
+
+    </ul>
 </body>
 </html>
 
@@ -38,8 +48,29 @@
         const parentElem = document.getElementById('listOfitems');
         const childElem = document.createElement('li');
         childElem.innerText = obj.name + ' - ' + obj.email + ' - ' + obj.phonenumber;
-       
+
+        // const delBtn = document.createElement('btn');
+        const delBtn = document.createElement('input');
+        delBtn.type = 'button';
+        delBtn.value = 'Delete'
+        
+        // delBtn.innerText = 'Delete'  
+        // delBtn.type = 'button'             
+        // delBtn.style.background = 'grey'
+        // delBtn.style.color = 'white'
+        // delBtn.style.border = '1px solid black'
+        // delBtn.style.marginTop = '5px'
+        // delBtn.style.marginBottom = '5px'
+
+        delBtn.onclick = ()=>{
+            localStorage.removeItem(obj.email)
+            parentElem.removeChild(childElem)
+        }
+        
+        childElem.appendChild(delBtn);
         parentElem.appendChild(childElem);
     }
+    
 </script>
-<!-- store in local storage user detail , show the user details on the screen using dom manipulation  -->
+
+<!-- deleted form local storage and screen -->
