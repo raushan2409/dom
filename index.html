@@ -2,49 +2,52 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <form onsubmit="saveToLocalStorage(event)">
         <label>Name</label>
-        
-        <input type="text" name="username" required/>
+
+        <input type="text" name="username" id="usernameInputTag" required />
         <br>
         <label>EmailId</label>
-        
-        <input type="email" name="emailId" required/>
+
+        <input type="email" name="emailId" id="emailInputTag" required />
         <br>
         <label>Phone Number</label>
-        
-        <input type="tel" name="phonenumber"/>
+
+        <input type="tel" name="phonenumber" id="phoneNumberInputTag" />
         <br>
         <button>Submit</button>
-       
+
     </form>
     <ul id="listOfitems">
 
     </ul>
 </body>
+
 </html>
 
 <script>
-    function saveToLocalStorage(e){
+    function saveToLocalStorage(e) {
         e.preventDefault();
         const name = e.target.username.value;
         const email = e.target.emailId.value;
         const phonenumber = e.target.phonenumber.value;
 
         const obj = {
-            name,email,phonenumber
+            name, email, phonenumber
         }
-        localStorage.setItem('userDetails',JSON.stringify(obj)); 
+        localStorage.setItem('userDetails', JSON.stringify(obj));
         showUserOnScreen(obj);
     }
-    function showUserOnScreen(obj){
+    function showUserOnScreen(obj) {
         const parentElem = document.getElementById('listOfitems');
         const childElem = document.createElement('li');
         childElem.innerText = obj.name + ' - ' + obj.email + ' - ' + obj.phonenumber;
@@ -53,24 +56,28 @@
         const delBtn = document.createElement('input');
         delBtn.type = 'button';
         delBtn.value = 'Delete'
-        
-        // delBtn.innerText = 'Delete'  
-        // delBtn.type = 'button'             
-        // delBtn.style.background = 'grey'
-        // delBtn.style.color = 'white'
-        // delBtn.style.border = '1px solid black'
-        // delBtn.style.marginTop = '5px'
-        // delBtn.style.marginBottom = '5px'
 
-        delBtn.onclick = ()=>{
+        delBtn.onclick = () => {
             localStorage.removeItem(obj.email)
             parentElem.removeChild(childElem)
         }
-        
+
+        const editBtn = document.createElement('input');
+        editBtn.type = 'button'
+        editBtn.value = 'Edit'
+        editBtn.onclick = () => {
+            localStorage.removeItem(obj.email);
+            parentElem.removeChild(childElem);
+            document.getElementById('usernameInputTag').value = obj.name;
+            document.getElementById('emailInputTag').value = obj.email;
+            document.getElementById('phoneNumberInputTag').value = obj.phonenumber;
+        }
+
         childElem.appendChild(delBtn);
+        childElem.appendChild(editBtn);
         parentElem.appendChild(childElem);
     }
-    
+
 </script>
 
 <!-- deleted form local storage and screen -->
