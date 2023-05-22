@@ -1,5 +1,3 @@
-<!-- u can only store data as a string in local storage -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +17,7 @@
         <button>Submit</button>
        
     </form>
+    <ul id="listOfitems"></ul>
 </body>
 </html>
 
@@ -29,14 +28,18 @@
         const email = e.target.emailId.value;
         const phonenumber = e.target.phonenumber.value;
 
-        // localStorage.setItem('name',name);
-        // localStorage.setItem('email',email);
-        // localStorage.setItem('phonenumber',phonenumber);
-
         const obj = {
             name,email,phonenumber
         }
-        // localStorage.setItem('userDetails',obj); obj nai milege original format me so use json method 
-        localStorage.setItem('userDetails',JSON.stringify(obj)); //it took the object and convert to string , escape function check kro , this forget the old data if u update jst think how to take multiple data
+        localStorage.setItem('userDetails',JSON.stringify(obj)); 
+        showUserOnScreen(obj);
+    }
+    function showUserOnScreen(obj){
+        const parentElem = document.getElementById('listOfitems');
+        const childElem = document.createElement('li');
+        childElem.innerText = obj.name + ' - ' + obj.email + ' - ' + obj.phonenumber;
+       
+        parentElem.appendChild(childElem);
     }
 </script>
+<!-- store in local storage user detail , show the user details on the screen using dom manipulation  -->
